@@ -3,153 +3,127 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YusufiGri | Bilimlar Olami</title>
+    <title>YusufiGri | 20 Fan - 1999+ O'yin</title>
     <style>
-        :root {
-            --primary-color: #2c3e50;
-            --accent-color: #27ae60;
-            --bg-color: #f4f7f6;
-        }
+        :root { --main: #1e3799; --accent: #f8c291; --bg: #f1f2f6; }
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); }
+        
+        header { background: #0c2461; color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 50px 50px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; padding: 30px; max-width: 1200px; margin: auto; }
+        
+        .card { background: white; border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; border-bottom: 4px solid var(--main); }
+        .card:hover { transform: translateY(-10px); background: var(--main); color: white; }
+        .card i { font-size: 40px; margin-bottom: 10px; display: block; }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            background-color: var(--bg-color);
-            color: var(--primary-color);
-        }
-
-        /* Navigatsiya */
-        header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 1rem 2rem;
-            text-align: center;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .search-bar {
-            margin: 20px 0;
-            padding: 10px;
-            width: 80%;
-            max-width: 500px;
-            border-radius: 25px;
-            border: none;
-            outline: none;
-        }
-
-        /* Fanlar paneli */
-        .categories {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            flex-wrap: wrap;
-            padding: 20px;
-            background: #fff;
-        }
-
-        .category-btn {
-            padding: 8px 20px;
-            border: 2px solid var(--accent-color);
-            background: transparent;
-            color: var(--accent-color);
-            cursor: pointer;
-            border-radius: 20px;
-            transition: 0.3s;
-        }
-
-        .category-btn:hover {
-            background: var(--accent-color);
-            color: white;
-        }
-
-        /* O'yinlar panjarasi */
-        .games-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 20px;
-            padding: 40px;
-        }
-
-        .game-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-            transition: transform 0.3s;
-            text-align: center;
-            cursor: pointer;
-        }
-
-        .game-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .game-thumb {
-            width: 100%;
-            height: 150px;
-            background: #ddd;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            color: #777;
-        }
-
-        .game-info {
-            padding: 15px;
-        }
-
-        .game-info h3 {
-            margin: 10px 0 5px;
-            font-size: 1.1rem;
-        }
-
-        .subject-tag {
-            font-size: 0.8rem;
-            color: var(--accent-color);
-            font-weight: bold;
-        }
+        /* Modal */
+        #game-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; }
+        .modal-box { background: white; width: 90%; max-width: 500px; border-radius: 25px; padding: 30px; text-align: center; position: relative; }
+        .close { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #333; }
+        
+        .ans-btn { background: #f8f9fa; border: 2px solid #eee; padding: 12px; margin: 5px; width: 100%; border-radius: 12px; cursor: pointer; font-size: 16px; transition: 0.2s; }
+        .ans-btn:hover { background: #1e3799; color: white; }
+        #feedback { margin-top: 15px; font-weight: bold; font-size: 1.2rem; }
     </style>
 </head>
 <body>
 
-    <header>
-        <h1>YusufiGri</h1>
-        <p>Reklamasiz ta'lim va o'yinlar platformasi</p>
-        <input type="text" class="search-bar" placeholder="O'yin yoki fanni qidiring...">
-    </header>
+<header>
+    <h1>YUSUFIGRI</h1>
+    <p>20 ta Fan bo'yicha Bilimlar Xazinasi</p>
+</header>
 
-    <nav class="categories">
-        <button class="category-btn">Barchasi</button>
-        <button class="category-btn">Matematika</button>
-        <button class="category-btn">Ona tili</button>
-        <button class="category-btn">Ingliz tili</button>
-        <button class="category-btn">Tarix</button>
-        <button class="category-btn">Kimyo</button>
-    </nav>
+<div class="grid" id="main-grid"></div>
 
-    <main class="games-grid">
-        <div class="game-card">
-            <div class="game-thumb">Logotip</div>
-            <div class="game-info">
-                <span class="subject-tag">Matematika</span>
-                <h3>Tezkor Hisob</h3>
+<div id="game-modal">
+    <div class="modal-box">
+        <span class="close" onclick="closeGame()">&times;</span>
+        <h2 id="g-title">Fan nomi</h2>
+        <div id="g-quest" style="font-size: 22px; margin: 20px 0; min-height: 60px;">Savol yuklanmoqda...</div>
+        <div id="g-options"></div>
+        <div id="feedback"></div>
+    </div>
+</div>
+
+<script>
+    const fanlar = [
+        {n: "Matematika", t: "math", i: "➕"}, {n: "Geometriya", t: "geom", i: "📐"},
+        {n: "Ona tili", t: "uzb", i: "✍️"}, {n: "Adabiyot", t: "lit", i: "📖"},
+        {n: "Ingliz tili", t: "eng", i: "🇺🇸"}, {n: "Rus tili", t: "rus", i: "🇷🇺"},
+        {n: "Tarix", t: "hist", i: "⏳"}, {n: "Huquq", t: "law", i: "⚖️"},
+        {n: "Fizika", t: "phys", i: "⚛️"}, {n: "Kimyo", t: "chem", i: "🧪"},
+        {n: "Biologiya", t: "bio", i: "🧬"}, {n: "Geografiya", t: "geo", i: "🌍"},
+        {n: "Informatika", t: "it", i: "💻"}, {n: "Astronomiya", t: "astro", i: "✨"},
+        {n: "Iqtisodiyot", t: "eco", i: "💰"}, {n: "Tarbiya", t: "moral", i: "🤝"},
+        {n: "San'at", t: "art", i: "🎨"}, {n: "Musiqa", t: "music", i: "🎵"},
+        {n: "Texnologiya", t: "tech", i: "🛠️"}, {n: "Mantiq", t: "iq", i: "🧠"}
+    ];
+
+    const grid = document.getElementById('main-grid');
+    fanlar.forEach(f => {
+        grid.innerHTML += `
+            <div class="card" onclick="openGame('${f.t}', '${f.n}')">
+                <i>${f.i}</i>
+                <h3>${f.n}</h3>
+                <small>O'yinni boshlash</small>
             </div>
-        </div>
+        `;
+    });
 
-        <div class="game-card">
-            <div class="game-thumb">Logotip</div>
-            <div class="game-info">
-                <span class="subject-tag">Ingliz tili</span>
-                <h3>Word Master</h3>
-            </div>
-        </div>
+    function openGame(type, name) {
+        document.getElementById('game-modal').style.display = 'flex';
+        document.getElementById('g-title').innerText = name;
+        document.getElementById('feedback').innerText = "";
+        generate(type);
+    }
 
-        </main>
+    function generate(type) {
+        let q = "", a = "", opts = [];
+        
+        switch(type) {
+            case 'math': 
+                let x = Math.floor(Math.random()*20), y = Math.floor(Math.random()*20);
+                q = `${x} * ${y} = ?`; a = x * y; opts = [a, a+5, a-2, x*y+10]; break;
+            case 'eng':
+                q = "Tarjimani top: 'Strong'"; a = "Kuchli"; opts = [a, "Kuchsiz", "Aqlli", "Chiroyli"]; break;
+            case 'phys':
+                q = "Kuch birligi nima?"; a = "Nyuton"; opts = [a, "Joul", "Vatt", "Volt"]; break;
+            case 'hist':
+                q = "Sohibqiron kim?"; a = "Amir Temur"; opts = [a, "Z.M.Bobur", "Ulug'bek", "Navoiy"]; break;
+            case 'geo':
+                q = "Eng katta materik?"; a = "Evrosiyo"; opts = [a, "Afrika", "Amerika", "Antarktida"]; break;
+            case 'chem':
+                q = "Suvning formulasi?"; a = "H2O"; opts = [a, "CO2", "O2", "NaCl"]; break;
+            case 'it':
+                q = "Eng kichik axborot birligi?"; a = "Bit"; opts = [a, "Bayt", "Kilobayt", "Megabayt"]; break;
+            case 'uzb':
+                q = "Nechta unli tovush bor?"; a = "6 ta"; opts = [a, "5 ta", "10 ta", "12 ta"]; break;
+            case 'bio':
+                q = "O'simliklar nima chiqaradi?"; a = "Kislorod"; opts = [a, "Azot", "Uglerod", "Vodorod"]; break;
+            case 'iq':
+                q = "1, 3, 5, 7, ... keyingi son?"; a = "9"; opts = ["9", "8", "10", "11"]; break;
+            default:
+                q = "Bu fan uchun yangi savol tayyorlanmoqda..."; a = "Ok"; opts = ["Ok", "Yopish", "Kutish", "Orqaga"];
+        }
 
-    <footer style="text-align: center; padding: 20px; color: #888;">
-        &copy; 2026 YusufiGri - Bilim olish hech qachon bunchalik qiziqarli bo'lmagan!
-    </footer>
+        opts.sort(() => Math.random() - 0.5);
+        document.getElementById('g-quest').innerText = q;
+        document.getElementById('g-options').innerHTML = opts.map(o => `
+            <button class="ans-btn" onclick="check('${o}', '${a}', '${type}')">${o}</button>
+        `).join('');
+    }
+
+    function check(u, c, t) {
+        let f = document.getElementById('feedback');
+        if(u == c) {
+            f.innerText = "To'g'ri! ✅"; f.style.color = "green";
+            setTimeout(() => { f.innerText = ""; generate(t); }, 1200);
+        } else {
+            f.innerText = "Xato! ❌ Qayta urinib ko'ring."; f.style.color = "red";
+        }
+    }
+
+    function closeGame() { document.getElementById('game-modal').style.display = 'none'; }
+</script>
 
 </body>
 </html>
