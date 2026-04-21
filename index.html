@@ -1,138 +1,180 @@
-\<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YUSUFGAME | Mega O'yinlar Markazi</title>
-    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;800&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <title>YUSUFGAME | Bilimlar Imperiyasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Rajdhani:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root { --neon: #00ffcc; --purple: #bc13fe; --dark: #0a0a0a; }
-        body { background: var(--dark); color: white; font-family: 'Rajdhani', sans-serif; margin: 0; overflow-x: hidden; }
+        :root { --neon: #00ffcc; --gold: #ffcf00; --dark: #050505; --card: #121212; }
+        body { background: var(--dark); color: white; font-family: 'Rajdhani', sans-serif; margin: 0; }
+
+        header { 
+            padding: 60px 20px; text-align: center; 
+            background: linear-gradient(to bottom, #111, var(--dark));
+            border-bottom: 4px solid var(--neon);
+            box-shadow: 0 0 30px rgba(0,255,204,0.2);
+        }
+
+        .logo { 
+            font-family: 'Black Ops One', cursive; font-size: 5rem; 
+            color: var(--neon); text-shadow: 0 0 15px var(--neon); margin: 0;
+            letter-spacing: 5px;
+        }
+
+        .grid { 
+            display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
+            gap: 25px; padding: 50px; max-width: 1400px; margin: auto; 
+        }
+
+        .card { 
+            background: var(--card); border: 2px solid #222; padding: 30px; 
+            border-radius: 20px; text-align: center; cursor: pointer; transition: 0.4s;
+            position: relative; overflow: hidden;
+        }
+
+        .card:hover { 
+            transform: scale(1.1) rotate(2deg); border-color: var(--neon);
+            box-shadow: 0 0 40px rgba(0,255,204,0.3);
+        }
+
+        .card i { font-size: 60px; display: block; margin-bottom: 15px; filter: drop-shadow(0 0 5px var(--neon)); }
+        .card h3 { margin: 10px 0; font-size: 1.8rem; color: var(--gold); }
+
+        /* Stage Area */
+        #stage { 
+            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.98); z-index: 9999; flex-direction: column; 
+            align-items: center; justify-content: center; 
+        }
+
+        .game-box { 
+            background: #1a1a1a; border: 3px solid var(--neon); padding: 50px; 
+            border-radius: 40px; width: 85%; max-width: 700px; text-align: center;
+            box-shadow: 0 0 60px var(--neon);
+        }
+
+        .opt-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 40px; }
         
-        header { padding: 40px; text-align: center; border-bottom: 2px solid var(--neon); background: #111; box-shadow: 0 0 20px rgba(0,255,204,0.3); }
-        h1 { font-family: 'Orbitron', sans-serif; font-size: 3.5rem; margin: 0; color: var(--neon); text-shadow: 0 0 10px var(--neon); }
-        .stat-box { display: inline-block; margin-top: 15px; padding: 10px 20px; border: 1px solid var(--purple); border-radius: 30px; font-size: 1.2rem; background: rgba(188, 19, 254, 0.1); }
+        .opt-btn { 
+            background: transparent; border: 2px solid var(--gold); color: white; 
+            padding: 20px; border-radius: 15px; font-size: 1.4rem; cursor: pointer;
+            transition: 0.3s; font-family: 'Rajdhani', sans-serif;
+        }
 
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 20px; padding: 40px; max-width: 1400px; margin: auto; }
-        .card { background: #1a1a1a; border-radius: 15px; padding: 25px; text-align: center; transition: 0.3s; cursor: pointer; border: 1px solid #333; position: relative; }
-        .card:hover { transform: scale(1.07); border-color: var(--neon); box-shadow: 0 0 25px rgba(0,255,204,0.2); }
-        .card i { font-size: 50px; display: block; margin-bottom: 15px; }
+        .opt-btn:hover { background: var(--gold); color: black; font-weight: bold; transform: scale(1.05); }
 
-        /* Game Arena */
-        #arena { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.95); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; }
-        .box { background: #111; border: 2px solid var(--neon); padding: 40px; border-radius: 20px; width: 90%; max-width: 600px; text-align: center; box-shadow: 0 0 40px var(--neon); }
-        .opts { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 30px; }
-        button.opt { background: transparent; border: 1.5px solid var(--purple); color: white; padding: 15px; border-radius: 10px; cursor: pointer; font-size: 1.1rem; transition: 0.2s; }
-        button.opt:hover { background: var(--purple); box-shadow: 0 0 15px var(--purple); }
-        .close { position: absolute; top: 20px; right: 30px; font-size: 40px; cursor: pointer; }
+        .score-val { font-size: 2rem; color: var(--neon); text-shadow: 0 0 10px var(--neon); }
+        .exit-btn { position: absolute; top: 30px; right: 40px; font-size: 50px; color: white; cursor: pointer; }
     </style>
 </head>
 <body>
 
 <header>
-    <h1>YUSUFIGRI</h1>
-    <div class="stat-box">Ball: <span id="score">0</span> XP</div>
+    <h1 class="logo">YUSUFGAME</h1>
+    <div style="margin-top: 20px;">
+        <span style="font-size: 1.5rem; color: #888;">LEVEL: <span id="lvl">1</span></span> | 
+        <span class="score-val">XP: <span id="xp">0</span></span>
+    </div>
 </header>
 
 <div class="grid" id="main-grid"></div>
 
-<div id="arena">
-    <span class="close" onclick="exit()">&times;</span>
-    <div class="box">
-        <h2 id="a-title" style="color: var(--neon);">FAN</h2>
-        <p id="a-q" style="font-size: 1.8rem; margin: 30px 0;"></p>
-        <div class="opts" id="a-opts"></div>
-        <div id="msg" style="margin-top: 20px; font-weight: bold;"></div>
+<div id="stage">
+    <span class="exit-btn" onclick="quit()">&times;</span>
+    <div class="game-box">
+        <h2 id="g-title" style="color: var(--neon); font-size: 2.5rem;">FAN</h2>
+        <p id="g-q" style="font-size: 2.2rem; margin: 40px 0;"></p>
+        <div class="opt-grid" id="g-opts"></div>
+        <div id="g-msg" style="margin-top: 30px; font-size: 1.5rem; min-height: 30px;"></div>
     </div>
 </div>
 
 <script>
-    let score = 0;
+    let xp = 0;
     const fanlar = [
-        {n: "Matematika", t: "math", i: "➕"}, {n: "Informatika", t: "it", i: "💻"},
-        {n: "Ingliz tili", t: "eng", i: "🇬🇧"}, {n: "Tarix", t: "hist", i: "🏺"},
-        {n: "Biologiya", t: "bio", i: "🧬"}, {n: "Kimyo", t: "chem", i: "🧪"},
-        {n: "Fizika", t: "phys", i: "⚛️"}, {n: "Geografiya", t: "geo", i: "🌍"},
-        {n: "Ona tili", t: "uzb", i: "✍️"}, {n: "Adabiyot", t: "book", i: "📚"},
-        {n: "Astronomiya", t: "astro", i: "🪐"}, {n: "Mantiq", t: "iq", i: "🧠"},
-        {n: "Iqtisod", t: "eco", i: "📈"}, {n: "Huquq", t: "law", i: "⚖️"},
-        {n: "San'at", t: "art", i: "🎨"}, {n: "Sport", t: "sport", i: "🏀"},
-        {n: "Texnika", t: "tech", i: "⚙️"}, {n: "Musiqa", t: "music", i: "🎵"},
-        {n: "Hayvonot", t: "zoo", i: "🦁"}, {n: "Kosmos", t: "space", i: "🚀"}
+        {n: "Matematika", t: "math", i: "🎯"}, {n: "Fizika", t: "phys", i: "⚛️"},
+        {n: "Kimyo", t: "chem", i: "🧪"}, {n: "Informatika", t: "it", i: "💾"},
+        {n: "Tarix", t: "hist", i: "⚔️"}, {n: "Geografiya", t: "geo", i: "🌍"},
+        {n: "Ona tili", t: "uzb", i: "🖋️"}, {n: "Adabiyot", t: "lit", i: "📜"},
+        {n: "Ingliz tili", t: "eng", i: "🇺🇸"}, {n: "Rus tili", t: "rus", i: "🇷🇺"},
+        {n: "Astronomiya", t: "astro", i: "🪐"}, {n: "Iqtisod", t: "eco", i: "📈"},
+        {n: "Mantiq", t: "iq", i: "🧠"}, {n: "Biologiya", t: "bio", i: "🧬"},
+        {n: "Huquq", t: "law", i: "⚖️"}, {n: "San'at", t: "art", i: "🎨"},
+        {n: "Musiqa", t: "music", i: "🎼"}, {n: "Sport", t: "sport", i: "🏆"},
+        {n: "Texnika", t: "tech", i: "⚙️"}, {n: "Kosmos", t: "space", i: "🛸"}
     ];
-
-    // --- KATTA SAVOLLAR BAZASI ---
-    const database = {
-        it: [
-            {q: "Siz ko'rib turgan ushbu sayt qaysi tilda yozilgan?", a: "HTML", o: ["HTML", "C++", "Java", "Python"]},
-            {q: "Dasturlashda eng ko'p ishlatiladigan 'Loop' nomi?", a: "For", o: ["For", "If", "Variable", "Link"]},
-            {q: "Brauzerda sahifani yangilash tugmasi?", a: "F5", o: ["F5", "F1", "F12", "F2"]},
-            {q: "Google asoschisi kim?", a: "Larry Page", o: ["Larry Page", "Elon Musk", "Bill Gates", "Mark Zuckerberg"]}
-        ],
-        eng: [
-            {q: "Tarjimasi: 'Knowledge'", a: "Bilim", o: ["Bilim", "Kitob", "Maktab", "Qalam"]},
-            {q: "Opposite of 'Fast'?", a: "Slow", o: ["Slow", "Big", "Quick", "Smart"]},
-            {q: "I ___ a student.", a: "am", o: ["am", "is", "are", "be"]}
-        ],
-        hist: [
-            {q: "Amir Temur nechanchi yilda tug'ilgan?", a: "1336", o: ["1336", "1405", "1370", "1221"]},
-            {q: "O'zbekiston mustaqillik kuni?", a: "1-sentabr", o: ["1-sentabr", "8-dekabr", "21-mart", "1-iyun"]}
-        ],
-        bio: [
-            {q: "Yurak nechta kameradan iborat?", a: "4 ta", o: ["4 ta", "2 ta", "3 ta", "6 ta"]},
-            {q: "O'simliklar havoga nima chiqaradi?", a: "Kislorod", o: ["Kislorod", "Azot", "Uglerod", "Vodorod"]}
-        ],
-        geo: [
-            {q: "Eng katta okean?", a: "Tinch", o: ["Tinch", "Atlantika", "Hind", "Shimoliy"]},
-            {q: "Dunyo aholisi eng ko'p davlat?", a: "Hindiston", o: ["Hindiston", "Xitoy", "AQSH", "Rossiya"]}
-        ]
-        // Barcha fanlar uchun shunday massivlar davom etadi...
-    };
 
     const grid = document.getElementById('main-grid');
     fanlar.forEach(f => {
-        grid.innerHTML += `<div class="card" onclick="openGame('${f.t}', '${f.n}')"><i>${f.i}</i><h3>${f.n}</h3></div>`;
+        grid.innerHTML += `<div class="card" onclick="play('${f.t}', '${f.n}')"><i>${f.i}</i><h3>${f.n}</h3></div>`;
     });
 
-    function openGame(t, n) {
-        document.getElementById('arena').style.display = 'flex';
-        document.getElementById('a-title').innerText = n;
-        loadQuestion(t);
+    function play(t, n) {
+        document.getElementById('stage').style.display = 'flex';
+        document.getElementById('g-title').innerText = n;
+        document.getElementById('g-msg').innerText = "";
+        generate(t);
     }
 
-    function loadQuestion(t) {
-        let qText = "", ans = "", options = [];
+    function generate(t) {
+        let q = "", a = "", opts = [];
 
+        // --- TAKRORLANMAS ALGORITMLAR ---
         if(t === 'math') {
             let n1 = Math.floor(Math.random()*100), n2 = Math.floor(Math.random()*50);
-            qText = `${n1} + ${n2} = ?`; ans = n1+n2; options = [ans, ans+5, ans-2, ans+10];
+            let op = ['+', '-', '*'][Math.floor(Math.random()*3)];
+            if(op === '+') { q = `${n1} + ${n2} = ?`; a = n1+n2; }
+            if(op === '-') { q = `${n1} - ${n2} = ?`; a = n1-n2; }
+            if(op === '*') { q = `${Math.floor(n1/5)} * ${Math.floor(n2/5)} = ?`; a = Math.floor(n1/5) * Math.floor(n2/5); }
+            opts = [a, a+5, a-3, a+10];
         } 
-        else if(database[t]) {
-            let db = database[t];
-            let item = db[Math.floor(Math.random()*db.length)];
-            qText = item.q; ans = item.a; options = item.o;
-        } 
+        else if(t === 'it') {
+            const list = [
+                {q: "1 Kilobayt necha bayt?", a: "1024", o: ["1024", "1000", "512", "2048"]},
+                {q: "Web-sayt 'suyagi' qaysi til?", a: "HTML", o: ["HTML", "CSS", "Python", "PHP"]},
+                {q: "Eng birinchi yaratilgan brauzer?", a: "WorldWideWeb", o: ["WorldWideWeb", "Chrome", "Opera", "IE"]}
+            ];
+            let pick = list[Math.floor(Math.random()*list.length)];
+            q = pick.q; a = pick.a; opts = pick.o;
+        }
+        else if(t === 'eng') {
+            const words = [
+                {q: "Success", a: "Muvaffaqiyat"}, {q: "Challenge", a: "Qiyinchilik"}, {q: "Development", a: "Rivojlanish"}
+            ];
+            let pick = words[Math.floor(Math.random()*words.length)];
+            q = `Translate: "${pick.q}"`; a = pick.a; opts = [a, "Baxt", "Xato", "Dars"];
+        }
+        else if(t === 'iq') {
+            let n1 = Math.floor(Math.random()*10);
+            q = `${n1}, ${n1+2}, ${n1+4}, ?`; a = n1+6; opts = [a, a+1, a-1, a+2];
+        }
         else {
-            qText = "Ushbu fan uchun savollar bazasi yuklanmoqda..."; ans = "Ok"; options = ["Ok", "Kutish", "Yopish", "Keyingisi"];
+            q = `${document.getElementById('g-title').innerText} fanidan keyingi bosqichga tayyormisiz?`;
+            a = "Ha"; opts = ["Ha", "Albatta", "Tayyorman", "Boshladik"];
         }
 
-        options.sort(() => Math.random() - 0.5);
-        document.getElementById('a-q').innerText = qText;
-        document.getElementById('a-opts').innerHTML = options.map(o => `<button class="opt" onclick="check('${o}', '${ans}', '${t}')">${o}</button>`).join('');
+        opts.sort(() => Math.random() - 0.5);
+        document.getElementById('g-q').innerText = q;
+        document.getElementById('g-opts').innerHTML = opts.map(o => `
+            <button class="opt-btn" onclick="check('${o}', '${a}', '${t}')">${o}</button>
+        `).join('');
     }
 
     function check(u, c, t) {
-        let m = document.getElementById('msg');
+        let m = document.getElementById('g-msg');
         if(u == c) {
-            score += 100; document.getElementById('score').innerText = score;
-            m.innerText = "BARAKALLA! 🎉"; m.style.color = "var(--neon)";
-            setTimeout(() => { m.innerText = ""; loadQuestion(t); }, 1000);
+            xp += 150;
+            document.getElementById('xp').innerText = xp;
+            document.getElementById('lvl').innerText = Math.floor(xp/1000) + 1;
+            m.innerText = "MISSION COMPLETE! +150 XP ⚡"; m.style.color = "var(--neon)";
+            setTimeout(() => { m.innerText = ""; generate(t); }, 1200);
         } else {
-            m.innerText = "XATO! ❌"; m.style.color = "red";
+            m.innerText = "MISSION FAILED! TRY AGAIN ❌"; m.style.color = "red";
         }
     }
 
-    function exit() { document.getElementById('arena').style.display = 'none'; }
+    function quit() { document.getElementById('stage').style.display = 'none'; }
 </script>
 
 </body>
