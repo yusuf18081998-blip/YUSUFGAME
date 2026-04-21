@@ -3,126 +3,249 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YusufiGri | 20 Fan - 1999+ O'yin</title>
+    <title>YUSUFGAME| O'yinlar Imperiyasi</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Rajdhani:wght@500;700&display=swap" rel="stylesheet">
     <style>
-        :root { --main: #1e3799; --accent: #f8c291; --bg: #f1f2f6; }
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; background: var(--bg); }
-        
-        header { background: #0c2461; color: white; padding: 40px 20px; text-align: center; border-radius: 0 0 50px 50px; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 15px; padding: 30px; max-width: 1200px; margin: auto; }
-        
-        .card { background: white; border-radius: 20px; padding: 20px; text-align: center; box-shadow: 0 10px 20px rgba(0,0,0,0.05); cursor: pointer; transition: 0.3s; border-bottom: 4px solid var(--main); }
-        .card:hover { transform: translateY(-10px); background: var(--main); color: white; }
-        .card i { font-size: 40px; margin-bottom: 10px; display: block; }
+        :root {
+            --neon-blue: #00d2ff;
+            --neon-purple: #9d50bb;
+            --dark-space: #050505;
+            --card-bg: #111;
+        }
 
-        /* Modal */
-        #game-modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 100; align-items: center; justify-content: center; }
-        .modal-box { background: white; width: 90%; max-width: 500px; border-radius: 25px; padding: 30px; text-align: center; position: relative; }
-        .close { position: absolute; top: 15px; right: 20px; font-size: 30px; cursor: pointer; color: #333; }
-        
-        .ans-btn { background: #f8f9fa; border: 2px solid #eee; padding: 12px; margin: 5px; width: 100%; border-radius: 12px; cursor: pointer; font-size: 16px; transition: 0.2s; }
-        .ans-btn:hover { background: #1e3799; color: white; }
-        #feedback { margin-top: 15px; font-weight: bold; font-size: 1.2rem; }
+        body {
+            background: var(--dark-space);
+            color: white;
+            font-family: 'Rajdhani', sans-serif;
+            margin: 0;
+            padding-bottom: 50px;
+        }
+
+        /* Neon Header */
+        header {
+            padding: 50px 20px;
+            text-align: center;
+            background: radial-gradient(circle, #1a1a2e 0%, #050505 100%);
+            border-bottom: 3px solid var(--neon-blue);
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+
+        h1 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 4rem;
+            margin: 0;
+            background: linear-gradient(to right, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 10px var(--neon-blue));
+        }
+
+        .stats-bar {
+            margin-top: 20px;
+            font-size: 1.5rem;
+            color: var(--neon-blue);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* O'yinlar Grid */
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 25px;
+            padding: 40px;
+            max-width: 1400px;
+            margin: auto;
+        }
+
+        .game-card {
+            background: var(--card-bg);
+            border: 1px solid #333;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: -50%; left: -50%; width: 200%; height: 200%;
+            background: conic-gradient(transparent, transparent, transparent, var(--neon-blue));
+            animation: rotate 4s linear infinite;
+            z-index: -1;
+        }
+
+        @keyframes rotate { 100% { transform: rotate(360deg); } }
+
+        .game-card:hover {
+            transform: scale(1.05) translateY(-10px);
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 30px rgba(0, 210, 255, 0.4);
+        }
+
+        .game-card i { font-size: 60px; margin-bottom: 15px; display: block; }
+        .game-card h3 { font-size: 1.8rem; margin: 10px 0; font-family: 'Orbitron', sans-serif; }
+
+        /* Fullscreen Game Arena */
+        #arena {
+            display: none;
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 1000;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .arena-box {
+            background: #111;
+            border: 2px solid var(--neon-blue);
+            padding: 50px;
+            border-radius: 30px;
+            width: 80%;
+            max-width: 700px;
+            text-align: center;
+            box-shadow: 0 0 50px var(--neon-blue);
+        }
+
+        .opt-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .opt {
+            background: transparent;
+            border: 2px solid var(--neon-purple);
+            color: white;
+            padding: 20px;
+            font-size: 1.3rem;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .opt:hover {
+            background: var(--neon-purple);
+            box-shadow: 0 0 20px var(--neon-purple);
+        }
+
+        .exit {
+            position: absolute;
+            top: 30px; right: 40px;
+            font-size: 50px;
+            color: white;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
 
 <header>
     <h1>YUSUFIGRI</h1>
-    <p>20 ta Fan bo'yicha Bilimlar Xazinasi</p>
+    <div class="stats-bar">SCORE: <span id="xp">0</span> XP | LEVEL: <span id="lvl">1</span></div>
 </header>
 
-<div class="grid" id="main-grid"></div>
+<div class="grid" id="game-grid"></div>
 
-<div id="game-modal">
-    <div class="modal-box">
-        <span class="close" onclick="closeGame()">&times;</span>
-        <h2 id="g-title">Fan nomi</h2>
-        <div id="g-quest" style="font-size: 22px; margin: 20px 0; min-height: 60px;">Savol yuklanmoqda...</div>
-        <div id="g-options"></div>
-        <div id="feedback"></div>
+<div id="arena">
+    <span class="exit" onclick="exitGame()">&times;</span>
+    <div class="arena-box">
+        <h2 id="a-title" style="color: var(--neon-blue); font-size: 2.5rem;">FAN NOMI</h2>
+        <p id="a-quest" style="font-size: 2rem; margin: 40px 0;"></p>
+        <div class="opt-grid" id="a-opts"></div>
+        <div id="a-msg" style="margin-top: 30px; font-size: 1.5rem;"></div>
     </div>
 </div>
 
 <script>
+    let xp = 0;
     const fanlar = [
-        {n: "Matematika", t: "math", i: "➕"}, {n: "Geometriya", t: "geom", i: "📐"},
-        {n: "Ona tili", t: "uzb", i: "✍️"}, {n: "Adabiyot", t: "lit", i: "📖"},
-        {n: "Ingliz tili", t: "eng", i: "🇺🇸"}, {n: "Rus tili", t: "rus", i: "🇷🇺"},
-        {n: "Tarix", t: "hist", i: "⏳"}, {n: "Huquq", t: "law", i: "⚖️"},
-        {n: "Fizika", t: "phys", i: "⚛️"}, {n: "Kimyo", t: "chem", i: "🧪"},
-        {n: "Biologiya", t: "bio", i: "🧬"}, {n: "Geografiya", t: "geo", i: "🌍"},
-        {n: "Informatika", t: "it", i: "💻"}, {n: "Astronomiya", t: "astro", i: "✨"},
-        {n: "Iqtisodiyot", t: "eco", i: "💰"}, {n: "Tarbiya", t: "moral", i: "🤝"},
-        {n: "San'at", t: "art", i: "🎨"}, {n: "Musiqa", t: "music", i: "🎵"},
-        {n: "Texnologiya", t: "tech", i: "🛠️"}, {n: "Mantiq", t: "iq", i: "🧠"}
+        {n: "Matematika", t: "math", i: "🧮"}, {n: "Fizika", t: "phys", i: "⚡"},
+        {n: "Kimyo", t: "chem", i: "🧪"}, {n: "Biologiya", t: "bio", i: "🧬"},
+        {n: "Tarix", t: "hist", i: "⚔️"}, {n: "Geografiya", t: "geo", i: "🗺️"},
+        {n: "Ona tili", t: "uzb", i: "📜"}, {n: "Ingliz tili", t: "eng", i: "🇬🇧"},
+        {n: "Informatika", t: "it", i: "💾"}, {n: "Astronomiya", t: "astro", i: "🪐"},
+        {n: "Iqtisodiyot", t: "eco", i: "💎"}, {n: "Adabiyot", t: "lit", i: "🖊️"},
+        {n: "Mantiq", t: "iq", i: "🧩"}, {n: "Musiqa", t: "music", i: "🎧"},
+        {n: "San'at", t: "art", i: "🖌️"}, {n: "Huquq", t: "law", i: "⚖️"},
+        {n: "Texnika", t: "tech", i: "⚙️"}, {n: "Robototexnika", t: "robot", i: "🤖"},
+        {n: "Sport", t: "sport", i: "🥇"}, {n: "Mantiqiy-2", t: "riddle", i: "🔍"}
     ];
 
-    const grid = document.getElementById('main-grid');
+    const grid = document.getElementById('game-grid');
     fanlar.forEach(f => {
         grid.innerHTML += `
-            <div class="card" onclick="openGame('${f.t}', '${f.n}')">
+            <div class="game-card" onclick="start('${f.t}', '${f.n}')">
                 <i>${f.i}</i>
                 <h3>${f.n}</h3>
-                <small>O'yinni boshlash</small>
             </div>
         `;
     });
 
-    function openGame(type, name) {
-        document.getElementById('game-modal').style.display = 'flex';
-        document.getElementById('g-title').innerText = name;
-        document.getElementById('feedback').innerText = "";
-        generate(type);
+    function start(type, name) {
+        document.getElementById('arena').style.display = 'flex';
+        document.getElementById('a-title').innerText = name;
+        document.getElementById('a-msg').innerText = "";
+        next(type);
     }
 
-    function generate(type) {
+    function next(type) {
         let q = "", a = "", opts = [];
         
-        switch(type) {
-            case 'math': 
-                let x = Math.floor(Math.random()*20), y = Math.floor(Math.random()*20);
-                q = `${x} * ${y} = ?`; a = x * y; opts = [a, a+5, a-2, x*y+10]; break;
-            case 'eng':
-                q = "Tarjimani top: 'Strong'"; a = "Kuchli"; opts = [a, "Kuchsiz", "Aqlli", "Chiroyli"]; break;
-            case 'phys':
-                q = "Kuch birligi nima?"; a = "Nyuton"; opts = [a, "Joul", "Vatt", "Volt"]; break;
-            case 'hist':
-                q = "Sohibqiron kim?"; a = "Amir Temur"; opts = [a, "Z.M.Bobur", "Ulug'bek", "Navoiy"]; break;
-            case 'geo':
-                q = "Eng katta materik?"; a = "Evrosiyo"; opts = [a, "Afrika", "Amerika", "Antarktida"]; break;
-            case 'chem':
-                q = "Suvning formulasi?"; a = "H2O"; opts = [a, "CO2", "O2", "NaCl"]; break;
-            case 'it':
-                q = "Eng kichik axborot birligi?"; a = "Bit"; opts = [a, "Bayt", "Kilobayt", "Megabayt"]; break;
-            case 'uzb':
-                q = "Nechta unli tovush bor?"; a = "6 ta"; opts = [a, "5 ta", "10 ta", "12 ta"]; break;
-            case 'bio':
-                q = "O'simliklar nima chiqaradi?"; a = "Kislorod"; opts = [a, "Azot", "Uglerod", "Vodorod"]; break;
-            case 'iq':
-                q = "1, 3, 5, 7, ... keyingi son?"; a = "9"; opts = ["9", "8", "10", "11"]; break;
-            default:
-                q = "Bu fan uchun yangi savol tayyorlanmoqda..."; a = "Ok"; opts = ["Ok", "Yopish", "Kutish", "Orqaga"];
+        // --- DINAMIK O'YIN GENERATORI ---
+        if(type === 'math') {
+            let n1 = Math.floor(Math.random()*99), n2 = Math.floor(Math.random()*99);
+            q = `${n1} + ${n2} = ?`; a = n1+n2; opts = [a, a+10, a-5, a+2];
+        } else if(type === 'it') {
+            let terms = [{q: "HTML nima?", a: "Markup dili"}, {q: "JS nima?", a: "Dasturlash dili"}, {q: "CPU nima?", a: "Markaziy protsessor"}];
+            let obj = terms[Math.floor(Math.random()*terms.length)];
+            q = obj.q; a = obj.a; opts = [a, "Qurilma", "Operatsion tizim", "Fayl turi"];
+        } else if(type === 'eng') {
+            let words = [{q: "Strong", a: "Kuchli"}, {q: "Fast", a: "Tezkor"}, {q: "Beautiful", a: "Chiroyli"}];
+            let obj = words[Math.floor(Math.random()*words.length)];
+            q = `Translate: "${obj.q}"`; a = obj.a; opts = [a, "Katta", "Kichik", "Yomon"];
+        } else if(type === 'chem') {
+            let chem = [{q: "H2O", a: "Suv"}, {q: "O2", a: "Kislorod"}, {q: "NaCl", a: "Tuz"}];
+            let obj = chem[Math.floor(Math.random()*chem.length)];
+            q = `Formula nomi: ${obj.q}`; a = obj.a; opts = [a, "Kislota", "Gaz", "Metall"];
+        } else if(type === 'astro') {
+            q = "Quyosh sistemasidagi eng katta planeta?"; a = "Yupiter"; opts = ["Yupiter", "Mars", "Saturn", "Yer"];
+        } else {
+            // Qolgan hamma fanlar uchun universal savol
+            q = `${name} fanidan mantiqiy savol tayyor?`; a = "Ha"; opts = ["Ha", "Yo'q", "Balki", "Bilmayman"];
         }
 
         opts.sort(() => Math.random() - 0.5);
-        document.getElementById('g-quest').innerText = q;
-        document.getElementById('g-options').innerHTML = opts.map(o => `
-            <button class="ans-btn" onclick="check('${o}', '${a}', '${type}')">${o}</button>
+        document.getElementById('a-quest').innerText = q;
+        document.getElementById('a-opts').innerHTML = opts.map(o => `
+            <button class="opt" onclick="check('${o}', '${a}', '${type}')">${o}</button>
         `).join('');
     }
 
     function check(u, c, t) {
-        let f = document.getElementById('feedback');
+        let msg = document.getElementById('a-msg');
         if(u == c) {
-            f.innerText = "To'g'ri! ✅"; f.style.color = "green";
-            setTimeout(() => { f.innerText = ""; generate(t); }, 1200);
+            xp += 100;
+            document.getElementById('xp').innerText = xp;
+            document.getElementById('lvl').innerText = Math.floor(xp/500) + 1;
+            msg.innerText = "EXCELLENT! +100 XP";
+            msg.style.color = var(--neon-blue);
+            setTimeout(() => { msg.innerText = ""; next(t); }, 1000);
         } else {
-            f.innerText = "Xato! ❌ Qayta urinib ko'ring."; f.style.color = "red";
+            msg.innerText = "ERROR! TRY AGAIN";
+            msg.style.color = "red";
         }
     }
 
-    function closeGame() { document.getElementById('game-modal').style.display = 'none'; }
+    function exitGame() { document.getElementById('arena').style.display = 'none'; }
 </script>
 
 </body>
