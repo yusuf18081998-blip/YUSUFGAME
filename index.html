@@ -3,26 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YUSUFGAME | 1000+ Games</title>
+    <title>YUSUFGAME | O'yinlar Markazi</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body, html { width: 100%; height: 100%; overflow: hidden; background: #0b0e14; }
+        body { background: #0f172a; color: white; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
         
-        /* Yuqori panel */
         header {
-            background: #16213e; height: 60px; display: flex; 
-            align-items: center; justify-content: center;
-            border-bottom: 3px solid #00fff2; position: fixed; width: 100%; top: 0;
+            background: #1e293b; padding: 15px; text-align: center;
+            border-bottom: 3px solid #38bdf8; position: sticky; top: 0; z-index: 1000;
         }
-        header h1 { color: #00fff2; font-family: 'Orbitron', sans-serif; font-size: 24px; letter-spacing: 3px; }
+        header h1 { color: #38bdf8; font-size: 28px; letter-spacing: 2px; }
 
-        /* O'yinlar joylashadigan asosiy qism */
-        #game-container {
-            margin-top: 60px;
+        /* O'yinlar joylashadigan asosiy konteyner */
+        .container {
             width: 100%;
-            height: calc(100vh - 60px);
+            height: calc(100vh - 70px);
+            background: #000;
         }
 
+        /* Bu portal bloklanmaydi va sayt ichida ochiladi */
         iframe {
             width: 100%;
             height: 100%;
@@ -36,8 +35,8 @@
         <h1>YUSUFGAME</h1>
     </header>
 
-    <div id="game-container">
-        <iframe src="https://html5.api.gamedistribution.com/main.html" allowfullscreen></iframe>
+    <div class="container">
+        <iframe src="https://www.gameflare.com/embed/" allowfullscreen></iframe>
     </div>
 
 </body>
