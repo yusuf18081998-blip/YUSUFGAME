@@ -3,52 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YUSUFGAME | O'yinlar Markazi</title>
+    <title>YUSUFGAME - O'yinlar Markazi</title>
     <style>
-        body { background-color: #0b0e14; color: white; font-family: sans-serif; margin: 0; padding: 20px; }
-        h1 { text-align: center; color: #00ffcc; text-transform: uppercase; letter-spacing: 5px; }
-        .grid-container {
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { 
+            background-color: #0f172a; 
+            color: #f8fafc; 
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+            padding-bottom: 50px;
+        }
+        
+        /* Header stili */
+        header {
+            background: linear-gradient(90deg, #1e293b, #334155);
+            padding: 20px;
+            text-align: center;
+            border-bottom: 4px solid #38bdf8;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+        }
+        header h1 {
+            font-size: 40px;
+            letter-spacing: 3px;
+            color: #38bdf8;
+            text-shadow: 0 0 10px rgba(56, 189, 248, 0.5);
+        }
+
+        /* O'yinlar setkasi (Grid) */
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px; padding: 20px;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
         }
+
+        /* O'yin kartochkasi */
         .game-card {
-            background: #1a1f29; border-radius: 15px; overflow: hidden;
-            transition: 0.3s; border: 2px solid #333; text-align: center;
-            cursor: pointer; text-decoration: none; color: white;
+            background: #1e293b;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 1px solid #334155;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            color: white;
+            display: flex;
+            flex-direction: column;
         }
-        .game-card:hover { transform: scale(1.05); border-color: #00ffcc; box-shadow: 0 0 20px #00ffcc; }
-        .game-card img { width: 100%; height: 150px; object-fit: cover; }
-        .game-card h3 { margin: 10px 0; }
-        .category-tag { font-size: 12px; background: #e94560; padding: 2px 8px; border-radius: 10px; }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            border-color: #38bdf8;
+            box-shadow: 0 10px 25px rgba(56, 189, 248, 0.3);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+        }
+
+        .game-info {
+            padding: 15px;
+            text-align: center;
+        }
+
+        .game-info h3 {
+            margin-bottom: 10px;
+            font-size: 20px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .3d-badge { background: #f59e0b; color: #000; }
+        .2d-badge { background: #10b981; color: #fff; }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            color: #64748b;
+            font-size: 14px;
+        }
     </style>
 </head>
 <body>
 
-    <h1>YUSUFGAME</h1>
-    <p style="text-align: center;">Har qanday o'yinlar to'plami</p>
+    <header>
+        <h1>YUSUFGAME</h1>
+        <p>1000+ O'yinlar Dunyosi</p>
+    </header>
 
-    <div class="grid-container">
+    <div class="container">
         
         <a href="https://bit.ly/4cz0Wai" class="game-card">
             <img src="https://img.freepik.com/free-photo/neon-racing-car-speeding-night_23-2150800537.jpg" alt="Neon Speedster">
-            <h3>Neon Speedster</h3>
-            <span class="category-tag">3D Poyga</span>
+            <div class="game-info">
+                <h3>Neon Speedster</h3>
+                <span class="badge 3d-badge">3D Poyga</span>
+            </div>
         </a>
 
-        <a href="https://tinyurl.com/yusufgame" class="game-card">
+        <a href="https://astrocade.com/games/brain-battle-blitz/" class="game-card">
             <img src="https://as1.ftcdn.net/v2/jpg/05/52/94/89/1000_F_552948951_zFlXvI3V1Y9P7S3v4A9O7UoYv7V9O6.jpg" alt="Brain Battle Blitz">
-            <h3>Brain Battle</h3>
-            <span class="category-tag">2-Kishilik / Quiz</span>
+            <div class="game-info">
+                <h3>Brain Battle Blitz</h3>
+                <span class="badge 2d-badge">2 Kishilik / Quiz</span>
+            </div>
         </a>
 
-        <div class="game-card" style="opacity: 0.5;">
-            <div style="height: 150px; display: flex; align-items: center; justify-content: center;">➕</div>
-            <h3>Yaqinda...</h3>
-            <p>Yangi o'yin yaratilmoqda</p>
+        <div class="game-card" style="opacity: 0.4;">
+            <div style="height: 160px; display: flex; align-items: center; justify-content: center; font-size: 40px;">🎮</div>
+            <div class="game-info">
+                <h3>Yangi O'yin</h3>
+                <span class="badge">Tez kunda...</span>
+            </div>
         </div>
 
     </div>
+
+    <footer>
+        &copy; 2026 YUSUFGAME Platformasi. Barcha huquqlar himoyalangan.
+    </footer>
 
 </body>
 </html>
