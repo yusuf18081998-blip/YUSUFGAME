@@ -3,48 +3,39 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YUSUFGAME | 1000+ O'yinlar Markazi</title>
+    <title>YUSUFGAME | 1000+ O'yinlar</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0f172a; color: white; font-family: 'Segoe UI', sans-serif; }
+        body { background: #0b0e14; overflow: hidden; font-family: sans-serif; }
         
         header {
-            background: #1e293b; padding: 15px; text-align: center;
-            border-bottom: 3px solid #38bdf8; position: sticky; top: 0; z-index: 100;
+            background: #16213e; height: 60px; display: flex; 
+            align-items: center; justify-content: center;
+            border-bottom: 3px solid #00fff2;
         }
-        header h1 { color: #38bdf8; font-size: 28px; text-transform: uppercase; }
+        header h1 { color: #00fff2; font-size: 24px; text-transform: uppercase; letter-spacing: 3px; }
 
-        /* O'yinlar turadigan joy */
-        .game-frame-container {
+        .main-container {
             width: 100%;
-            height: calc(100vh - 70px); /* Ekran bo'yiga to'liq moslashadi */
-            overflow: hidden;
+            height: calc(100vh - 60px);
         }
 
+        /* Ishonchli o'yinlar portali */
         iframe {
             width: 100%;
             height: 100%;
             border: none;
-        }
-
-        .footer-bar {
-            background: #1e293b; padding: 10px; text-align: center;
-            font-size: 12px; color: #64748b;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>YUSUFGAME Portal</h1>
+        <h1>YUSUFGAME PORTAL</h1>
     </header>
 
-    <div class="game-frame-container">
-        <iframe src="https://html5.gamemonetize.com/manager/showcase/" allowfullscreen></iframe>
-    </div>
-
-    <div class="footer-bar">
-        YUSUFGAME - 1000 dan ortiq interaktiv o'yinlar jamlanmasi
+    <div class="main-container">
+        <iframe src="https://catalog.gamedistribution.com/u/yusufgame" title="YUSUFGAME"></iframe>
     </div>
 
 </body>
