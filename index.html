@@ -3,136 +3,52 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>YUSUFGAME | 200+ Games</title>
-    <link href="https://fonts.googleapis.com/css2?family=Black+Ops+One&family=Rajdhani:wght@600&display=swap" rel="stylesheet">
+    <title>YUSUFGAME | O'yinlar Markazi</title>
     <style>
-        :root { --neon: #00ffcc; --purple: #9d50bb; --bg: #050505; }
-        body { background: var(--bg); color: white; font-family: 'Rajdhani', sans-serif; margin: 0; }
-        
-        /* Header */
-        header { padding: 30px; text-align: center; border-bottom: 3px solid var(--neon); background: #000; }
-        .logo { font-family: 'Black Ops One', cursive; font-size: 3rem; color: var(--neon); text-shadow: 0 0 10px var(--neon); margin: 0; cursor: pointer; }
-
-        /* Hub Layout */
-        .container { padding: 30px; max-width: 1200px; margin: auto; }
-        .section-title { color: var(--purple); font-size: 2rem; border-left: 5px solid var(--purple); padding-left: 15px; margin: 20px 0; }
-        
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 20px; }
-        .card { background: #111; border: 1px solid #333; padding: 20px; border-radius: 15px; text-align: center; cursor: pointer; transition: 0.3s; }
-        .card:hover { border-color: var(--neon); transform: scale(1.05); background: #1a1a1a; }
-        .card i { font-size: 40px; display: block; margin-bottom: 10px; }
-
-        /* Modal / Overlay for Sub-Games */
-        #sub-menu, #game-screen { 
-            display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
-            background: rgba(0,0,0,0.95); z-index: 1000; flex-direction: column; align-items: center; justify-content: center; 
+        body { background-color: #0b0e14; color: white; font-family: sans-serif; margin: 0; padding: 20px; }
+        h1 { text-align: center; color: #00ffcc; text-transform: uppercase; letter-spacing: 5px; }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px; padding: 20px;
         }
-
-        .sub-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; width: 90%; max-width: 500px; }
-        .sub-btn { background: var(--purple); color: white; border: none; padding: 15px; border-radius: 10px; font-size: 1.1rem; cursor: pointer; transition: 0.2s; font-family: 'Rajdhani'; }
-        .sub-btn:hover { background: var(--neon); color: black; font-weight: bold; }
-
-        .game-box { background: #111; border: 2px solid var(--neon); padding: 40px; border-radius: 20px; width: 85%; max-width: 500px; text-align: center; }
-        .close { position: absolute; top: 20px; right: 30px; font-size: 40px; cursor: pointer; }
-        
-        input { background: #222; border: 2px solid var(--neon); color: white; padding: 15px; width: 80%; border-radius: 10px; font-size: 1.5rem; text-align: center; margin-top: 20px; outline: none; }
+        .game-card {
+            background: #1a1f29; border-radius: 15px; overflow: hidden;
+            transition: 0.3s; border: 2px solid #333; text-align: center;
+            cursor: pointer; text-decoration: none; color: white;
+        }
+        .game-card:hover { transform: scale(1.05); border-color: #00ffcc; box-shadow: 0 0 20px #00ffcc; }
+        .game-card img { width: 100%; height: 150px; object-fit: cover; }
+        .game-card h3 { margin: 10px 0; }
+        .category-tag { font-size: 12px; background: #e94560; padding: 2px 8px; border-radius: 10px; }
     </style>
 </head>
 <body>
 
-<header>
-    <h1 class="logo" onclick="location.reload()">YUSUFGAME</h1>
-</header>
+    <h1>YUSUFGAME</h1>
+    <p style="text-align: center;">Har qanday o'yinlar to'plami</p>
 
-<div class="container">
-    <div class="section-title">FANLARNI TANLANG</div>
-    <div class="grid" id="main-grid"></div>
-</div>
+    <div class="grid-container">
+        
+        <a href="https://bit.ly/4cz0Wai" class="game-card">
+            <img src="https://img.freepik.com/free-photo/neon-racing-car-speeding-night_23-2150800537.jpg" alt="Neon Speedster">
+            <h3>Neon Speedster</h3>
+            <span class="category-tag">3D Poyga</span>
+        </a>
 
-<div id="sub-menu">
-    <span class="close" onclick="closeSub()">&times;</span>
-    <h2 id="sub-title" style="color: var(--neon); font-size: 2.5rem; margin-bottom: 30px;"></h2>
-    <div class="sub-grid" id="sub-list">
+        <a href="https://tinyurl.com/yusufgame" class="game-card">
+            <img src="https://as1.ftcdn.net/v2/jpg/05/52/94/89/1000_F_552948951_zFlXvI3V1Y9P7S3v4A9O7UoYv7V9O6.jpg" alt="Brain Battle Blitz">
+            <h3>Brain Battle</h3>
+            <span class="category-tag">2-Kishilik / Quiz</span>
+        </a>
+
+        <div class="game-card" style="opacity: 0.5;">
+            <div style="height: 150px; display: flex; align-items: center; justify-content: center;">➕</div>
+            <h3>Yaqinda...</h3>
+            <p>Yangi o'yin yaratilmoqda</p>
         </div>
-</div>
 
-<div id="game-screen">
-    <span class="close" onclick="closeGame()">&times;</span>
-    <div class="game-box">
-        <h2 id="g-name" style="color: var(--purple);">O'YIN NOMI</h2>
-        <div id="g-content" style="font-size: 2rem; margin: 30px 0;"></div>
-        <input type="text" id="g-input" placeholder="Javob...">
-        <button class="sub-btn" style="margin-top: 20px; width: 100%;" onclick="checkAnswer()">TEKSHIRISH</button>
-        <div id="g-msg" style="margin-top: 15px;"></div>
     </div>
-</div>
-
-<script>
-    const fanlar = [
-        {n: "Matematika", t: "math", i: "➕"}, {n: "Informatika", t: "it", i: "💻"},
-        {n: "Ingliz tili", t: "eng", i: "🇺🇸"}, {n: "Fizika", t: "phys", i: "⚡"},
-        {n: "Kimyo", t: "chem", i: "🧪"}, {n: "Tarix", t: "hist", i: "🏺"}
-    ];
-
-    let currentAns = "";
-
-    // Har bir fan uchun 10 tadan o'yin nomlari
-    const gameList = {
-        math: ["Qo'shish", "Ayirish", "Ko'paytirish", "Bo'lish", "Kvadrat", "Ildiz", "Foiz", "Tenglama", "Tezkor misol", "Mantiqiy son"],
-        it: ["HTML Taglar", "CSS Rangi", "JS O'zgaruvchi", "Binary Kod", "Domenlar", "Brauzerlar", "Qurilmalar", "Klaviatura", "Python", "Algoritm"],
-        eng: ["Meva", "Rang", "Hayvon", "Fe'llar", "Sifatlar", "Oilaviy", "Ob-havo", "Kasblar", "Shahar", "Maktab"]
-    };
-
-    const mainGrid = document.getElementById('main-grid');
-    fanlar.forEach(f => {
-        mainGrid.innerHTML += `<div class="card" onclick="showSub('${f.t}', '${f.n}')"><i>${f.i}</i><h3>${f.n}</h3></div>`;
-    });
-
-    function showSub(t, n) {
-        const sub = document.getElementById('sub-menu');
-        const list = document.getElementById('sub-list');
-        document.getElementById('sub-title').innerText = n;
-        sub.style.display = 'flex';
-        
-        list.innerHTML = "";
-        let games = gameList[t] || ["O'yin 1", "O'yin 2", "O'yin 3", "O'yin 4", "O'yin 5", "O'yin 6", "O'yin 7", "O'yin 8", "O'yin 9", "O'yin 10"];
-        
-        games.forEach((g, index) => {
-            list.innerHTML += `<button class="sub-btn" onclick="playNow('${g}', '${t}')">${index + 1}. ${g}</button>`;
-        });
-    }
-
-    function playNow(gameName, type) {
-        document.getElementById('game-screen').style.display = 'flex';
-        document.getElementById('g-name').innerText = gameName;
-        document.getElementById('g-msg').innerText = "";
-        document.getElementById('g-input').value = "";
-        
-        // Oddiy o'yin mantiqi (Har bir o'yin uchun har xil qilish mumkin)
-        if(type === 'math') {
-            let n1 = Math.floor(Math.random()*10), n2 = Math.floor(Math.random()*10);
-            document.getElementById('g-content').innerText = `${n1} + ${n2} = ?`;
-            currentAns = (n1 + n2).toString();
-        } else {
-            document.getElementById('g-content').innerText = `${gameName} bo'yicha savol...`;
-            currentAns = "1";
-        }
-    }
-
-    function checkAnswer() {
-        let val = document.getElementById('g-input').value;
-        let msg = document.getElementById('g-msg');
-        if(val == currentAns) {
-            msg.innerHTML = "TO'G'RI! ✅"; msg.style.color = "var(--neon)";
-            setTimeout(() => { playNow(document.getElementById('g-name').innerText, 'math'); }, 1000);
-        } else {
-            msg.innerHTML = "XATO! Qayta urinib ko'r. ❌"; msg.style.color = "red";
-        }
-    }
-
-    function closeSub() { document.getElementById('sub-menu').style.display = 'none'; }
-    function closeGame() { document.getElementById('game-screen').style.display = 'none'; }
-</script>
 
 </body>
 </html>
