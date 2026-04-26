@@ -6,23 +6,23 @@
     <title>YUSUFGAME | O'yinlar Markazi</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { background: #0f172a; color: white; font-family: 'Segoe UI', sans-serif; overflow-x: hidden; }
+        body { background: #0f172a; color: white; font-family: 'Segoe UI', sans-serif; }
         
         header {
             background: #1e293b; padding: 15px; text-align: center;
-            border-bottom: 3px solid #38bdf8; position: sticky; top: 0; z-index: 1000;
+            border-bottom: 4px solid #38bdf8; box-shadow: 0 4px 15px rgba(0,0,0,0.5);
         }
-        header h1 { color: #38bdf8; font-size: 28px; letter-spacing: 2px; }
+        header h1 { color: #38bdf8; letter-spacing: 3px; font-size: 32px; }
 
-        /* O'yinlar joylashadigan asosiy konteyner */
-        .container {
+        /* O'yinlar maydoni */
+        .portal-wrapper {
             width: 100%;
-            height: calc(100vh - 70px);
+            height: calc(100vh - 75px);
             background: #000;
         }
 
-        /* Bu portal bloklanmaydi va sayt ichida ochiladi */
-        iframe {
+        /* Bu API blokirovkalarni aylanib o'tish uchun maxsus tayyorlangan */
+        #game-frame {
             width: 100%;
             height: 100%;
             border: none;
@@ -35,8 +35,8 @@
         <h1>YUSUFGAME</h1>
     </header>
 
-    <div class="container">
-        <iframe src="https://www.gameflare.com/embed/" allowfullscreen></iframe>
+    <div class="portal-wrapper">
+        <iframe id="game-frame" src="https://catalog.gamedistribution.com/u/yusufgame/?v=1" allowfullscreen></iframe>
     </div>
 
 </body>
